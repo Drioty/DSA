@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0xfdcy4" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.9.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:collaboration id="Collaboration_0kutcla">
+    <bpmn:participant id="Participant_1v468jz" name="Клиент" processRef="Process_1xrka2p" />
+    <bpmn:participant id="Participant_1tq6y4z" name="Сервер" processRef="Process_0wkgsxk" />
+    <bpmn:participant id="Participant_0lcgp2d" name="БД" processRef="Process_0ql61n0" />
+    <bpmn:messageFlow id="Flow_1r4wx3j" sourceRef="Activity_1davcwk" targetRef="Activity_0wcawrp" />
+    <bpmn:messageFlow id="Flow_06rle8l" sourceRef="Activity_0wcawrp" targetRef="Activity_0yac8cf" />
+    <bpmn:messageFlow id="Flow_11dn6fi" sourceRef="Activity_0qeff62" targetRef="Activity_0sm2bz9" />
+    <bpmn:messageFlow id="Flow_0l2bs9e" sourceRef="Activity_0sm2bz9" targetRef="Activity_0zpvtye" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_1xrka2p" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_05bz5h2</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Activity_05950gw" name="Удаление КД с помощью кнопки на клиенте">
+      <bpmn:incoming>Flow_05bz5h2</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ee8yw1</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_05bz5h2" sourceRef="StartEvent_1" targetRef="Activity_05950gw" />
+    <bpmn:task id="Activity_1davcwk" name="Передача удаляемых КД на сервер">
+      <bpmn:incoming>Flow_0ee8yw1</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0ee8yw1" sourceRef="Activity_05950gw" targetRef="Activity_1davcwk" />
+    <bpmn:task id="Activity_0zpvtye" name="КД пропадают со страницы">
+      <bpmn:outgoing>Flow_1aak9kw</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="Event_17gjmda">
+      <bpmn:incoming>Flow_1aak9kw</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1aak9kw" sourceRef="Activity_0zpvtye" targetRef="Event_17gjmda" />
+    <bpmn:textAnnotation id="TextAnnotation_1ax19g7">
+      <bpmn:text>КД - контактные данные</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1dhut1f" sourceRef="Activity_05950gw" targetRef="TextAnnotation_1ax19g7" />
+  </bpmn:process>
+  <bpmn:process id="Process_0wkgsxk" isExecutable="false">
+    <bpmn:task id="Activity_0wcawrp" name="Передача КД в БД через процедуру удаления" />
+    <bpmn:task id="Activity_0sm2bz9" name="Передача положительного результата клиенту" />
+  </bpmn:process>
+  <bpmn:process id="Process_0ql61n0" isExecutable="false">
+    <bpmn:task id="Activity_0yac8cf" name="Удаляет КД из информации о студенте">
+      <bpmn:outgoing>Flow_0awejhd</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_0qeff62" name="Передача положительного ответа серверу">
+      <bpmn:incoming>Flow_0awejhd</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0awejhd" sourceRef="Activity_0yac8cf" targetRef="Activity_0qeff62" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0kutcla">
+      <bpmndi:BPMNShape id="Participant_1v468jz_di" bpmnElement="Participant_1v468jz" isHorizontal="true">
+        <dc:Bounds x="129" y="50" width="739" height="252" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1ax19g7_di" bpmnElement="TextAnnotation_1ax19g7">
+        <dc:Bounds x="245" y="70" width="150" height="35" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_05bz5h2_di" bpmnElement="Flow_05bz5h2">
+        <di:waypoint x="215" y="177" />
+        <di:waypoint x="270" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ee8yw1_di" bpmnElement="Flow_0ee8yw1">
+        <di:waypoint x="370" y="177" />
+        <di:waypoint x="430" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1aak9kw_di" bpmnElement="Flow_1aak9kw">
+        <di:waypoint x="680" y="177" />
+        <di:waypoint x="732" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_05950gw_di" bpmnElement="Activity_05950gw">
+        <dc:Bounds x="270" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1davcwk_di" bpmnElement="Activity_1davcwk">
+        <dc:Bounds x="430" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0zpvtye_di" bpmnElement="Activity_0zpvtye">
+        <dc:Bounds x="580" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_17gjmda_di" bpmnElement="Event_17gjmda">
+        <dc:Bounds x="732" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1dhut1f_di" bpmnElement="Association_1dhut1f">
+        <di:waypoint x="320" y="137" />
+        <di:waypoint x="320" y="110" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Participant_1tq6y4z_di" bpmnElement="Participant_1tq6y4z" isHorizontal="true">
+        <dc:Bounds x="129" y="300" width="739" height="250" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0wcawrp_di" bpmnElement="Activity_0wcawrp">
+        <dc:Bounds x="430" y="370" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0sm2bz9_di" bpmnElement="Activity_0sm2bz9">
+        <dc:Bounds x="580" y="370" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_0lcgp2d_di" bpmnElement="Participant_0lcgp2d" isHorizontal="true">
+        <dc:Bounds x="129" y="550" width="739" height="250" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0awejhd_di" bpmnElement="Flow_0awejhd">
+        <di:waypoint x="530" y="670" />
+        <di:waypoint x="580" y="670" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_0yac8cf_di" bpmnElement="Activity_0yac8cf">
+        <dc:Bounds x="430" y="630" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0qeff62_di" bpmnElement="Activity_0qeff62">
+        <dc:Bounds x="580" y="630" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1r4wx3j_di" bpmnElement="Flow_1r4wx3j">
+        <di:waypoint x="480" y="217" />
+        <di:waypoint x="480" y="370" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_06rle8l_di" bpmnElement="Flow_06rle8l">
+        <di:waypoint x="480" y="450" />
+        <di:waypoint x="480" y="630" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11dn6fi_di" bpmnElement="Flow_11dn6fi">
+        <di:waypoint x="630" y="630" />
+        <di:waypoint x="630" y="450" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0l2bs9e_di" bpmnElement="Flow_0l2bs9e">
+        <di:waypoint x="630" y="370" />
+        <di:waypoint x="630" y="217" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
